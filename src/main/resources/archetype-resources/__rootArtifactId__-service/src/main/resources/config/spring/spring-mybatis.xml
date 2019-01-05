@@ -1,0 +1,69 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jee="http://www.springframework.org/schema/jee"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+  <!-- 1.加载数据库连接配置文件 -->
+  <context:property-placeholder location="classpath:config/properties/jdbc.properties"/>
+
+  <!-- 2.数据源配置 -->
+  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+    destroy-method="close">
+    <!-- 驱动name必须是driverClassName，否则报错 -->
+    <property name="driverClassName" value="${symbol_dollar}{jdbc.driverClassName}"/>
+    <property name="url" value="${symbol_dollar}{jdbc.url}"/>
+    <property name="username" value="${symbol_dollar}{jdbc.username}"/>
+    <property name="password" value="${symbol_dollar}{jdbc.password}"/>
+    <property name="initialSize" value="${symbol_dollar}{jdbc.initialSize}"/>
+    <property name="minIdle" value="${symbol_dollar}{jdbc.minIdle}"/>
+    <property name="maxActive" value="${symbol_dollar}{jdbc.maxActive}"/>
+    <property name="maxWait" value="${symbol_dollar}{jdbc.maxWait}"/>
+    <property name="timeBetweenEvictionRunsMillis" value="${symbol_dollar}{jdbc.timeBetweenEvictionRunsMillis}"/>
+    <property name="minEvictableIdleTimeMillis" value="${symbol_dollar}{jdbc.minEvictableIdleTimeMillis}"/>
+    <property name="validationQuery" value="SELECT 'x'"/>
+    <property name="testWhileIdle" value="true"/>
+    <property name="testOnBorrow" value="false"/>
+    <property name="testOnReturn" value="false"/>
+    <property name="filters" value="${symbol_dollar}{druid.filters}"/>
+    <property name="connectionProperties" value="config.decrypt=true"/>
+  </bean>
+
+  <!-- 3.创建SqlSessionFactory -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml"/>
+    <!--mapper.xml路径-->
+    <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
+  </bean>
+
+  <!-- 4.mapper扫描器 -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    <!--mapper接口路径-->
+    <property name="basePackage" value="${package}.dao"/>
+  </bean>
+
+  <!-- 5.事务管理 -->
+  <bean id="transactionManager"
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+
+</beans>
