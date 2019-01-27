@@ -24,10 +24,4 @@
     <setting name="jdbcTypeForNull" value="OTHER"/>
     <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
   </settings>
-
-  <typeAliases>
-    <typeAlias type="${groupId}.timeline.po.User" alias="User"/>
-    <typeAlias type="${groupId}.timeline.po.Post" alias="Post"/>
-    <typeAlias type="${groupId}.timeline.po.Test" alias="Test"/>
-  </typeAliases>
 </configuration>

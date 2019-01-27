@@ -6,6 +6,11 @@ package ${package}.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * The {@code IndexController} class.
+ *
+ * @author beiluve
+ */
 @Controller
 public class IndexController {
 

@@ -21,28 +21,33 @@
             http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
   <!-- 1.加载数据库连接配置文件 -->
-  <context:property-placeholder location="classpath:config/properties/jdbc.properties"/>
+  <!--<context:property-placeholder location="classpath:config/properties/jdbc.properties"/>-->
 
   <!-- 2.数据源配置 -->
-  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
-    destroy-method="close">
-    <!-- 驱动name必须是driverClassName，否则报错 -->
-    <property name="driverClassName" value="${symbol_dollar}{jdbc.driverClassName}"/>
-    <property name="url" value="${symbol_dollar}{jdbc.url}"/>
-    <property name="username" value="${symbol_dollar}{jdbc.username}"/>
-    <property name="password" value="${symbol_dollar}{jdbc.password}"/>
-    <property name="initialSize" value="${symbol_dollar}{jdbc.initialSize}"/>
-    <property name="minIdle" value="${symbol_dollar}{jdbc.minIdle}"/>
-    <property name="maxActive" value="${symbol_dollar}{jdbc.maxActive}"/>
-    <property name="maxWait" value="${symbol_dollar}{jdbc.maxWait}"/>
-    <property name="timeBetweenEvictionRunsMillis" value="${symbol_dollar}{jdbc.timeBetweenEvictionRunsMillis}"/>
-    <property name="minEvictableIdleTimeMillis" value="${symbol_dollar}{jdbc.minEvictableIdleTimeMillis}"/>
-    <property name="validationQuery" value="SELECT 'x'"/>
-    <property name="testWhileIdle" value="true"/>
-    <property name="testOnBorrow" value="false"/>
-    <property name="testOnReturn" value="false"/>
-    <property name="filters" value="${symbol_dollar}{druid.filters}"/>
-    <property name="connectionProperties" value="config.decrypt=true"/>
+  <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"-->
+    <!--destroy-method="close">-->
+    <!--&lt;!&ndash; 驱动name必须是driverClassName，否则报错 &ndash;&gt;-->
+    <!--<property name="driverClassName" value="${symbol_dollar}{jdbc.driverClassName}"/>-->
+    <!--<property name="url" value="${symbol_dollar}{jdbc.url}"/>-->
+    <!--<property name="username" value="${symbol_dollar}{jdbc.username}"/>-->
+    <!--<property name="password" value="${symbol_dollar}{jdbc.password}"/>-->
+    <!--<property name="initialSize" value="${symbol_dollar}{jdbc.initialSize}"/>-->
+    <!--<property name="minIdle" value="${symbol_dollar}{jdbc.minIdle}"/>-->
+    <!--<property name="maxActive" value="${symbol_dollar}{jdbc.maxActive}"/>-->
+    <!--<property name="maxWait" value="${symbol_dollar}{jdbc.maxWait}"/>-->
+    <!--<property name="timeBetweenEvictionRunsMillis" value="${symbol_dollar}{jdbc.timeBetweenEvictionRunsMillis}"/>-->
+    <!--<property name="minEvictableIdleTimeMillis" value="${symbol_dollar}{jdbc.minEvictableIdleTimeMillis}"/>-->
+    <!--<property name="validationQuery" value="SELECT 'x'"/>-->
+    <!--<property name="testWhileIdle" value="true"/>-->
+    <!--<property name="testOnBorrow" value="false"/>-->
+    <!--<property name="testOnReturn" value="false"/>-->
+    <!--<property name="filters" value="${symbol_dollar}{druid.filters}"/>-->
+    <!--<property name="connectionProperties" value="config.decrypt=true"/>-->
+  <!--</bean>-->
+
+  <!-- 2.JNDI数据源配置 -->
+  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="jdbc/demoDB"/>
   </bean>
 
   <!-- 3.创建SqlSessionFactory -->
@@ -57,7 +62,7 @@
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
     <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     <!--mapper接口路径-->
-    <property name="basePackage" value="${package}.dao"/>
+    <property name="basePackage" value="${package}.mapper"/>
   </bean>
 
   <!-- 5.事务管理 -->

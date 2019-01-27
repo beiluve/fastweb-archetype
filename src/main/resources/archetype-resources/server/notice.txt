@@ -1,5 +1,4 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-${symbol_pound} config of your project for prd profile
-app.key=123
+-- this is the dir for server config files of your project.

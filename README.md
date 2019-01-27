@@ -1,18 +1,20 @@
-# FastWeb
+# fastweb
 
 `fastweb-archetype`是一个快速构建多模块SSM Web项目的maven脚手架。
 
 ## 项目结构
 
     |-- pom.xml                    -- 父级POM
+    |-- docs                       -- 项目文档目录
     |-- profiles                   -- 各环境配置文件
+    |-- server                     -- 本地服务容器配置文件目录
     |-- sql                        -- sql脚本存储目录
     |-- {artifactId}-common        -- 通用工具模块
     |--|-- src/main/java
     |--|-- src/main/resources
     |--|-- src/test/java
     |--|-- src/test/resources
-    |-- {artifactId}-service       -- 服务模块，依赖common模块
+    |-- {artifactId}-service       -- 服务模块，持久层，依赖common模块
     |--|-- src/main/java
     |--|-- src/main/resources
     |--|-- src/test/java
@@ -34,11 +36,4 @@
 
 使用`mvn archetype:generate`来创建maven web工程，其中：`-DgrouopId`，`-DartifactId`，`-Dversion`分别为新项目的maven坐标。
 
-    mvn archetype:generate 
-    -DgroupId=com.beiluve 
-    -DartifactId=demo 
-    -Dversion=0.0.1-SNAPSHOT
-    -DarchetypeGroupId=com.beiluve 
-    -DarchetypeArtifactId=fastweb-archetype 
-    -DarchetypeVersion=0.0.1 
-    -DarchetypeCatalog=local
+    mvn archetype:generate -DgroupId=com.beiluve -DartifactId=demo -Dversion=0.0.1-SNAPSHOT -DarchetypeGroupId=com.beiluve -DarchetypeArtifactId=fastweb-archetype -DarchetypeVersion=0.0.1 -DarchetypeCatalog=local

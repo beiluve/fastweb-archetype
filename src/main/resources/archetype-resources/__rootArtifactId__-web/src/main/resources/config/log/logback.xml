@@ -6,7 +6,7 @@
 
   <!--定义日志文件的存储地址 勿在 logback 的配置中使用相对路径-->
   <property name="logPath" value="classpath:/output/logs"/>
-  <property name="appName" value="${artifactId}"/>
+  <property name="appName" value="${parentArtifactId}"/>
 
   <!-- 控制台输出 -->
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

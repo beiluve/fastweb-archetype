@@ -1,0 +1,32 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+
+  <New id="dataSource" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>jdbc/demoDB</Arg>
+    <Arg>
+      <New class="com.alibaba.druid.pool.DruidDataSource">
+        <Set name="driverClassName">com.mysql.cj.jdbc.Driver</Set>
+        <Set name="url">jdbc:mysql://localhost:3306/demoDB?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true&amp;serverTimezone=UTC</Set>
+        <Set name="username">root</Set>
+        <Set name="password">Biyu5YzU+6sxDRbmWEa3B2uUcImzDo0BuXjTlL505+/pTb+/0Oqd3ou1R6J8+9Fy3CYrM18nBDqf6wAaPgUGOg==</Set>
+        <Set name="initialSize">10</Set>
+        <Set name="minIdle">5</Set>
+        <Set name="maxActive">50</Set>
+        <Set name="maxWait">60000</Set>
+        <Set name="timeBetweenEvictionRunsMillis">60000</Set>
+        <Set name="minEvictableIdleTimeMillis">300000</Set>
+        <Set name="validationQuery">SELECT 'x'</Set>
+        <Set name="testWhileIdle">true</Set>
+        <Set name="testOnBorrow">false</Set>
+        <Set name="testOnReturn">false</Set>
+        <Set name="filters">config</Set>
+        <Set name="connectionProperties">config.decrypt=true</Set>
+      </New>
+    </Arg>
+  </New>
+
+</Configure>

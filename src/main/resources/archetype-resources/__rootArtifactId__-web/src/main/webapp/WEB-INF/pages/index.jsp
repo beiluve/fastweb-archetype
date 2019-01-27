@@ -22,7 +22,7 @@
 
 </head>
 <body>
-<h1>Welcome to use ${parentArtifactId}!</h1>
+<h1>Welcome to project ${parentArtifactId}!</h1>
 
 <script type="text/javascript"
         src="${symbol_dollar}{pageContext.request.contextPath}/static/lib/jquery/jquery.min.js"></script>
